@@ -6,7 +6,7 @@
 
 A simple windows executable that removes duplicated files from a folder & subfolders and lets only one copy by comparing the MD5 hashes.
 
-image.png
+<img width="875" height="663" alt="image" src="https://github.com/user-attachments/assets/1bc785e8-2ae2-4ee8-b098-b65721d8b555" />
 
 ## Features 
 
