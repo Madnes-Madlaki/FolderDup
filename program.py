@@ -1,4 +1,5 @@
 import os
+import sys
 import hashlib
 import threading
 import tempfile
@@ -15,6 +16,16 @@ except ImportError:
     USE_RECYCLE_BIN = False
     # Fallback to permanent deletion (os.remove)
 
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller."""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except AttributeError:
+        # Running as script: use the directory of the script or current working directory
+        base_path = os.path.dirname(sys.argv[0]) if os.path.dirname(sys.argv[0]) else os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
 class DuplicateRemoverApp:
     def __init__(self, root):
         self.root = root
@@ -23,7 +34,7 @@ class DuplicateRemoverApp:
         self.root.resizable(True, True)
 
         # ---------- EMBEDDED ICON (Base64) ----------
-        iconDataPath = "vencre.txt"
+        iconDataPath = resource_path("vencre.txt")
         if os.path.exists(iconDataPath):
             try:
                 with open(iconDataPath, "r") as f:
